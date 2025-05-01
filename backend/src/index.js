@@ -21,6 +21,9 @@ import { app,server } from "./lib/socket.js";
 
   app.use("/api/auth",authRoutes);
   app.use("/api/messages",messageRoutes);
+  app.get("/",(req,res)=>{
+    res.send("Namaste Dunita");
+  })
 
   server.listen(PORT,'0.0.0.0',()=>{
     console.log("Server is running on port :",PORT);
