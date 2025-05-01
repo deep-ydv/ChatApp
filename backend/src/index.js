@@ -6,14 +6,15 @@
   import authRoutes from "./routes/auth.routes.js"
   import messageRoutes from "./routes/message.routes.js"
   import  { connectDB }  from "./lib/db.js";
+import { app,server } from "./lib/socket.js";
   dotenv.config();
-  const app=express();
+  
 
-  const PORT=process.env.PORT;
+  const PORT=process.env.VITE_PORT;
   app.use(express.json({ limit: '10mb' }));
   app.use(cookieParser());
   app.use(cors({
-    origin:"http://localhost:5173",
+    origin:process.env.VITE_FRONTEND_URL,
     credentials:true,
   }))
 
@@ -21,7 +22,7 @@
   app.use("/api/auth",authRoutes);
   app.use("/api/messages",messageRoutes);
 
-  app.listen(PORT,()=>{
+  server.listen(PORT,'0.0.0.0',()=>{
     console.log("Server is running on port :",PORT);
     connectDB();
   })
